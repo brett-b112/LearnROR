@@ -1,0 +1,146 @@
+irb(main):001:0> "Hello World"
+=> "Hello World"
+irb(main):002:0> puts "Hello World"
+Hello World
+=> nil
+irb(main):003:0> 3+2
+=> 5
+irb(main):004:0> 3*2
+=> 6
+irb(main):005:0> 3**2
+=> 9
+irb(main):006:0> Math.sqrt(9)
+=> 3.0
+irb(main):007:0> a = 9 + 2
+=> 11
+irb(main):008:0> b = 8 - 6
+=> 2
+irb(main):009:0> Math.sqrt(a+b)
+=> 3.605551275463989
+irb(main):010:0> def hi
+irb(main):011:1> put "Hello World"
+irb(main):012:1> end
+=> :hi
+irb(main):013:0> hi
+Traceback (most recent call last):
+        5: from /usr/bin/irb:23:in `<main>'
+        4: from /usr/bin/irb:23:in `load'
+        3: from /Library/Ruby/Gems/2.6.0/gems/irb-1.0.0/exe/irb:11:in `<top (required)>'
+        2: from (irb):13
+        1: from (irb):11:in `hi'
+NoMethodError (undefined method `put' for main:Object)
+Did you mean?  puts
+               putc
+irb(main):014:0> hi()
+Traceback (most recent call last):
+        6: from /usr/bin/irb:23:in `<main>'
+        5: from /usr/bin/irb:23:in `load'
+        4: from /Library/Ruby/Gems/2.6.0/gems/irb-1.0.0/exe/irb:11:in `<top (required)>'
+        3: from (irb):14
+        2: from (irb):14:in `rescue in irb_binding'
+        1: from (irb):11:in `hi'
+NoMethodError (undefined method `put' for main:Object)
+irb(main):015:0> def hi
+irb(main):016:1> puts "Hello World"
+irb(main):017:1> end
+=> :hi
+irb(main):018:0> hi
+Hello World
+=> nil
+irb(main):019:0> hi()
+Hello World
+=> nil
+irb(main):020:0> def hi(name)
+irb(main):021:1> puts "Hello #{name}!"
+irb(main):022:1> end
+=> :hi
+irb(main):023:0> hi(Brett)
+Traceback (most recent call last):
+        4: from /usr/bin/irb:23:in `<main>'
+        3: from /usr/bin/irb:23:in `load'
+        2: from /Library/Ruby/Gems/2.6.0/gems/irb-1.0.0/exe/irb:11:in `<top (required)>'
+        1: from (irb):23
+NameError (uninitialized constant Brett)
+irb(main):024:0> hi("Brett")
+Hello Brett!
+=> nil
+irb(main):025:0> def hi(name = "World!")
+irb(main):026:1> puts "Hello #{name.capitalize}!"
+irb(main):027:1> end
+=> :hi
+irb(main):028:0> hi
+Hello World!!
+=> nil
+irb(main):029:0> hi("Brett")
+Hello Brett!
+=> nil
+irb(main):030:0> class Greeter
+irb(main):031:1>
+.git      README.md
+irb(main):031:1> class Greeter
+irb(main):032:2> \^C
+irb(main):032:0> ^C
+irb(main):032:0> ^C
+irb(main):032:0> ^C
+irb(main):032:0> class Greeter
+irb(main):033:1> def initialize(name = "World")
+irb(main):034:2> @name = name
+irb(main):035:2> end
+irb(main):036:1> def say_hi
+irb(main):037:2> puts "Hi #{@name}!"
+irb(main):038:2> end
+irb(main):039:1> def say_bye
+irb(main):040:2> puts "Bye #{@name}, scram!"
+irb(main):041:2> end
+irb(main):042:1> end
+=> :say_bye
+irb(main):043:0> greeter = Greeter.new("Brett")
+=> #<Greeter:0x0000000122046e38 @name="Brett">
+irb(main):044:0> greeter.say_hi
+Hi Brett!
+=> nil
+irb(main):045:0> greeter.say_bye
+Bye Brett, scram!
+=> nil
+irb(main):046:0> greeter.instance_methods
+Traceback (most recent call last):
+        4: from /usr/bin/irb:23:in `<main>'
+        3: from /usr/bin/irb:23:in `load'
+        2: from /Library/Ruby/Gems/2.6.0/gems/irb-1.0.0/exe/irb:11:in `<top (required)>'
+        1: from (irb):46
+NoMethodError (undefined method `instance_methods' for #<Greeter:0x0000000122046e38 @name="Brett">)
+Did you mean?  instance_of?
+irb(main):047:0> Greeter.instance_methods
+=> [:say_bye, :say_hi, :hi, :instance_variable_defined?, :remove_instance_variable, :instance_of?, :kind_of?, :is_a?, :tap, :instance_variable_get, :instance_variable_set, :instance_variables, :singleton_method, :method, :public_send, :define_singleton_method, :public_method, :extend, :to_enum, :enum_for, :<=>, :===, :=~, :!~, :eql?, :respond_to?, :freeze, :inspect, :object_id, :send, :to_s, :display, :nil?, :hash, :class, :singleton_class, :clone, :dup, :itself, :yield_self, :then, :taint, :tainted?, :untaint, :untrust, :untrusted?, :trust, :frozen?, :methods, :singleton_methods, :protected_methods, :private_methods, :public_methods, :equal?, :!, :__id__, :==, :instance_exec, :!=, :instance_eval, :__send__]
+irb(main):048:0> Greeter.instance_methods(false)
+=> [:say_bye, :say_hi]
+irb(main):049:0> greeter.respond_to?("name")
+=> false
+irb(main):050:0> greeter.respond_to?("say_bye")
+=> true
+irb(main):051:0> greeter.respond_to?("hash")
+=> true
+irb(main):052:0> class Greeter
+irb(main):053:1> attr_accessor :name
+irb(main):054:1> end
+=> nil
+irb(main):055:0> greeter = Greeter.new("Andy")
+=> #<Greeter:0x00000001220ef510 @name="Andy">
+irb(main):056:0> greeter.respond_to?("name")
+=> true
+irb(main):057:0> greeter.respond_to?("name=")
+=> true
+irb(main):058:0> greeter.say_hi
+Hi Andy!
+=> nil
+irb(main):059:0> greeter.name="Betty"
+=> "Betty"
+irb(main):060:0> greeter
+=> #<Greeter:0x00000001220ef510 @name="Betty">
+irb(main):061:0> greeter.name
+=> "Betty"
+irb(main):062:0> greeter.say_hi
+Hi Betty!
+=> nil
+irb(main):063:0> quit
+
