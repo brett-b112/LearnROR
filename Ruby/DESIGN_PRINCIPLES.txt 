@@ -1,0 +1,93 @@
+# # =====================
+# # =====================
+# CLASSES
+# # =====================
+# # =====================
+
+
+# Module => Mixin inheritance
+# Allows us to defien a module that can beused by other classes through the include method
+module Speak
+  def speak(sound)
+    puts sound
+  end
+end
+
+class GoodDog
+  include Speak
+end
+
+class HumanBeing
+  include Speak
+end
+
+sparky = GoodDog.new
+sparky.speak("Arf!")        # => Arf!
+bob = HumanBeing.new
+bob.speak("Hello!")         # => Hello!
+
+GoodDog.ancestors 
+
+=>
+
+GoodDog
+Speak
+Object
+Kernel
+BasicObject
+
+
+# # =====================
+# # =====================
+# GETTERS AND SETTERS
+# # =====================
+# # =====================
+#
+
+# Viking Class below uses #Intialize method and @instance variables
+ class Viking
+    def initialize(name, age, health, strength)
+        @name = name
+        @age = age
+        @health = health
+        @strength = strength
+    end
+end
+
+> oleg = Viking.new("Oleg", 19, 100, 8)
+=> #<Viking:0x007ffc0597bae0>
+
+# Health Getter Method that returns health instance variable of oleg instance of Viking class
+def health
+    @health
+end
+
+> oleg.health
+=> 87
+
+
+#Setter of health method
+def health=(new_health)
+    @health = new_health
+end
+
+# attr_accessor isn’t magical, it just uses Ruby’s ability to create methods from within your script (part of "metaprogramming") to set up #name and #name=(new_name) and #age and #age=(new_age) etc.
+# attr_accessor creates the gettr and settr methods for the instance variales
+class Viking
+    attr_accessor :name, :age, :health, :strength
+    # codecodecode
+end
+
+
+
+# Reader 
+attr_reader
+#
+# Writer 
+attr_writer
+
+
+
+# Instance var references, if you omit the @ sign you MUST retain health or ruby will assume you are instantiating a new health variable
+self.value
+@value
