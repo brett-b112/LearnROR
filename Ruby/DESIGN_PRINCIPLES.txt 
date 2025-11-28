@@ -134,6 +134,106 @@ end
 * If you’re thinking that class variables seem pretty similar to constants, they are only similar in that all instances have access to them. If you’ve got something that will never, CAN never change, use a constant. If you might ever change it, stick with a class variable. At the very least, it makes your code much more legible.
 
 
-# Inheritance
-# ========
+# # =====================
+# # =====================
+# INHERITANCE & SCOPE
+# # =====================
+# # =====================
 In Ruby a class can only have one parent
+class Viking < Person # => Viking extends Person
+
+
+Calling #super let's you immediately access the superclasses equivalent function for overloading
+
+# Here we can see that heal would be completed 2 times from the parent class 'Person'
+def heal
+        2.times { super }
+        puts "Ready for battle!"
+    end
+
+# Can use within the main class as well
+class Viking < Person
+    def initialize(name, health, age, strength, weapon)
+        super(name, health, age, strength)
+        @weapon = weapon
+    end
+end
+
+# Tabbing gives scope for a variable in Ruby, available in all downstream scopes
+#
+
+# Private => Makes method only callable by other methods within the class OF THAT INSTANCE
+# This can be anything that you want to be conditional => i.e. die if he loses all his hp but not call .die
+class Viking < Person
+    ...
+    def take_damage(damage)
+        @health -= damage
+        die if @health <= 0
+    end
+    private
+      def die
+          puts "#{self.name} has been killed :("
+          self.dead = true    # assume we've defined a `dead` instance variable
+      end
+end
+
+> oleg = Viking.create_warrior("Oleg")
+> oleg.die
+NoMethodError: private method `die' called for #<Viking:0x007ffd4c041e50>
+> oleg.take_damage(200)
+Oleg has been killed :(
+=> true
+
+
+#PROTECTED 
+## protected provides most of the privacy of private but lets the methods inside ALL instances of the same class or its descendents also access it
+#
+
+
+# # =====================
+# # =====================
+# Composition
+# # =====================
+# HAS-A Relationship because object "has-a relationship to another object"
+# Objects exist as part of the instantation of a new object often called a CONTAINER
+# lifecycles of objects and container are linked
+# # =====================
+
+class Engine
+  def start
+    puts "Engine starting..."
+  end
+end
+
+class Car
+  def initialize
+    @engine = Engine.new  # Engine instance is created when Car is created
+  end
+
+  def start
+    @engine.start
+  end
+end
+
+my_car = Car.new
+my_car.start  # Engine is an integral part of Car
+
+
+
+
+# # =====================
+# # =====================
+# Aggregation 
+# # =====================
+# Container does not own the objects they can exist independently
+# # =====================
+#
+
+
+
+| Version                  | What It Changes       | Requires Setter? | Notes                                 |
+| ------------------------ | --------------------- | ---------------- | ------------------------------------- |
+| **1. Local vars**        | ❌ Nothing             | ❌ No             | Useless for updating object state     |
+| **2. Instance vars (@)** | ✅ Instance variables  | ❌ No             | Direct modification, bypasses setters |
+| **3. `self.attr =`**     | ✅ Uses setter methods | ✅ Yes            | Allows validations, callbacks, etc.   |
+
