@@ -91,3 +91,49 @@ attr_writer
 # Instance var references, if you omit the @ sign you MUST retain health or ruby will assume you are instantiating a new health variable
 self.value
 @value
+
+# @@ Is a class variable that is shared among all instances of that class
+
+# In this example, we assume that all Vikings start with the same health, so we don’t make it a parameter you can pass in:
+
+class Viking
+    @@starting_health
+    def initialize(name, age, strength)
+        @health = @@starting_health
+        # ...other stuff
+    end
+end
+
+# You can define class methods by doing self.example_class_methor or use the classes name i.e. Viking.example_Class_method
+
+# =========== TWO Methods for creating classes
+#
+# Factory Class
+# The first case is called a factory method, and is designed to save you from having to keep passing a bunch of parameters manually to your #initialize method:
+
+class Viking
+    def initialize(name, health, age, strength)
+        #... set variables
+    end
+    def self.create_warrior(name)
+        age = rand * 20 + 15   # remember, rand gives a random 0 to 1
+        health = [age * 5, 120].min
+        strength = [age / 2, 10].min
+        Viking.new(name, health, age, strength)  # returned
+    end
+end
+
+> sten = Viking.create_warrior("Sten")
+=> #<Viking:0x007ffc05a79848 @age=21.38812052620
+
+# Quick Basics
+# ========
+* Classes are useful to use when you want to give methods to your data or have multiple instances of your data
+* Class methods have access to other class methods and class variables but don’t have access to instance methods or instance variables
+* Instance methods can call other instance methods, instance variables, class methods, or class variables
+* If you’re thinking that class variables seem pretty similar to constants, they are only similar in that all instances have access to them. If you’ve got something that will never, CAN never change, use a constant. If you might ever change it, stick with a class variable. At the very least, it makes your code much more legible.
+
+
+# Inheritance
+# ========
+In Ruby a class can only have one parent
